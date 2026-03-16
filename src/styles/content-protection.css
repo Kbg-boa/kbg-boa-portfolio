@@ -1,0 +1,65 @@
+/**
+ * Content Protection Styles
+ * Adds extra protection layers to prevent content copying
+ */
+
+/* Disable text selection on sensitive elements */
+.no-select,
+.protected-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Prevent image dragging */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: auto;
+}
+
+/* Add watermark overlay effect on hover (optional) */
+.protected-image {
+  position: relative;
+}
+
+.protected-image::after {
+  content: '© KBG BOA';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0);
+  font-weight: bold;
+  pointer-events: none;
+  transition: color 0.3s ease;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.protected-image:hover::after {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* Prevent text copying via CSS */
+.copy-protected::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Disable screenshot hints (limited effectiveness) */
+@media print {
+  body {
+    display: none !important;
+  }
+}
